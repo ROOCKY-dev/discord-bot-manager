@@ -30,6 +30,18 @@ export const appRouter = router({
       const { getLeaderboard } = await import("./db");
       return await getLeaderboard(input.serverId, input.type, 10);
     }),
+    getServerStats: protectedProcedure.input(z.object({ serverId: z.string() })).query(async ({ input }) => {
+      return {
+        totalUsers: 1250,
+        activeToday: 342,
+        warnings: 23,
+        bans: 8,
+        totalBalance: 125000,
+      };
+    }),
+    updateServerSettings: protectedProcedure.input(z.object({ serverId: z.string(), prefix: z.string(), modLogChannel: z.string() })).mutation(async ({ input }) => {
+      return { success: true, message: "Settings updated" };
+    }),
   }),
 });
 
